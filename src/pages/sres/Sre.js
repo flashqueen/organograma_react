@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import ApexTree from 'apextree';
-import './Home.css';
 
-const Home = () => {
+import ApexTree from 'apextree';
+import './Sre.css';
+
+const SRE = () => {
+
     const data = {
         id: 'secretario',
         data: {
@@ -314,6 +315,7 @@ const Home = () => {
         ],
     };
 
+
     const options = {
         contentKey: 'data',
         width: 1912,
@@ -325,29 +327,24 @@ const Home = () => {
         siblingSpacing: 20,
         direction: 'top',
         enableExpandCollapse: true,
-        nodeTemplate: (content) => {
-            const isSres = content.name === 'SREs';
-            return `
-                <div class="node-card" 
-                    ${isSres ? "onClick=\"window.location.href='/superintendencias'\"" : ""}
-                    onmouseover="window.dispatchEvent(new CustomEvent('showDescription', { 
-                        detail: { 
-                            descricao: '${content.descricao}', 
-                            x: event.pageX, 
-                            y: event.pageY 
-                        } 
-                    }))" 
-                    onmouseout="window.dispatchEvent(new CustomEvent('hideDescription'))"
-                    style="cursor: ${isSres ? 'pointer' : 'default'};">
-                    <img class="node-image" src='/img/${content.imageURL}' alt='' />
-                    <div class="node-text">
-                        <div class="node-setor">${content.setor || ''}</div>
-                        <div class="node-nome">${content.name}</div>
-                        <div class="node-email">${content.email}</div>
-                    </div>
-                </div>
-            `;
-        },
+        nodeTemplate: (content) =>
+        `<div class="node-card" 
+            onmouseover="window.dispatchEvent(new CustomEvent('showDescription', { 
+                detail: { 
+                    descricao: '${content.descricao}', 
+                    x: event.pageX, 
+                    y: event.pageY 
+                } 
+            }))" 
+            onmouseout="window.dispatchEvent(new CustomEvent('hideDescription'))">
+            <img class="node-image" src='/img/${content.imageURL}' alt='' />
+            <div class="node-text">
+                <div class="node-setor">${content.setor || ''}</div>
+                <div class="node-nome">${content.name}</div>
+                <div class="node-email">${content.email}</div>
+            </div>
+        </div>`,
+    
         canvasStyle: 'border: none; background: #fff;',
         enableToolbar: true,
     };
@@ -355,20 +352,21 @@ const Home = () => {
     function showDescriptionHandler(event) {
         const { descricao, x, y } = event.detail;
         let descriptionBox = document.getElementById('description-box');
-
+        
         if (!descriptionBox) {
             descriptionBox = document.createElement('div');
             descriptionBox.id = 'description-box';
             descriptionBox.className = 'description-box';
             document.body.appendChild(descriptionBox);
         }
-
+    
         descriptionBox.innerText = descricao;
-
+    
         descriptionBox.style.left = `${x + 10}px`;
         descriptionBox.style.top = `${y + 10}px`;
         descriptionBox.style.display = 'block';
     }
+    
 
     function hideDescriptionHandler() {
         const descriptionBox = document.getElementById('description-box');
@@ -377,29 +375,18 @@ const Home = () => {
         }
     }
 
-    useEffect(() => {
-        window.addEventListener('showDescription', showDescriptionHandler);
-        window.addEventListener('hideDescription', hideDescriptionHandler);
+    window.addEventListener('showDescription', showDescriptionHandler);
+    window.addEventListener('hideDescription', hideDescriptionHandler);
 
-        const style = document.createElement('style');
 
-        document.head.appendChild(style);
+    const style = document.createElement('style');
 
-        const treeContainer = document.getElementById('svg-tree');
-        if (treeContainer) {
-            const tree = new ApexTree(treeContainer, options);
-            tree.render(data);
-        }
+    document.head.appendChild(style);
 
-        return () => {
-            window.removeEventListener('showDescription', showDescriptionHandler);
-            window.removeEventListener('hideDescription', hideDescriptionHandler);
-        };
-    }, []);
 
-    return (
-        <div id="svg-tree"></div>
-    );
-};
+    const tree = new ApexTree(document.getElementById('svg-tree'), options);
+    tree.render(data);
+    
+}
 
-export default Home;
+export default SRE;
