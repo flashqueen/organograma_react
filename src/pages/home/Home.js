@@ -7,7 +7,7 @@ const Home = () => {
     const data = {
         id: 'secretario',
         data: {
-            imageURL: '../../../assets/img/fabio.jpeg',
+            imageURL: 'fabio.jpeg',
             name: 'Fábio Pereira Vaz',
             email: 'fabio@seduc.to.gov.br',
             setor: 'Secretário da Educação',
@@ -21,7 +21,7 @@ const Home = () => {
             {
                 id: 'sub-secretario',
                 data: {
-                    imageURL: '/assets/img/edinho.jpeg',
+                    imageURL: 'edinho.jpeg',
                     name: 'Eder Fernandes',
                     email: 'eder@seduc.to.gov.br',
                     setor: 'Secretário Executivo',
@@ -49,7 +49,7 @@ const Home = () => {
                     {
                         id: 'assessor-gabinete-1',
                         data: {
-                            imageURL: '/assets/img/markes.jpeg',
+                            imageURL: 'markes.jpeg',
                             name: 'Markes Cristiana Oliveira Dos Santos',
                             email: 'exemplo@seduc.to.gov.br',
                             setor: 'Assessor de Gabinete I',
@@ -77,7 +77,7 @@ const Home = () => {
                             {
                                 id: 'assessor-gabinete-2',
                                 data: {
-                                    imageURL: '/assets/img/markes.jpeg',
+                                    imageURL: 'markes.jpeg',
                                     name: 'Rosirene Jorge Da Silva E Souza',
                                     email: 'exemplo@seduc.to.gov.br',
                                     setor: 'Assessor de Gabinete II',
@@ -337,7 +337,7 @@ const Home = () => {
                 } 
             }))" 
             onmouseout="window.dispatchEvent(new CustomEvent('hideDescription'))">
-            <img class="node-image" src='${content.imageURL}' alt='' />
+            <img class="node-image" src='/img/${content.imageURL}' alt='' />
             <div class="node-text">
                 <div class="node-setor">${content.setor || ''}</div>
                 <div class="node-nome">${content.name}</div>
