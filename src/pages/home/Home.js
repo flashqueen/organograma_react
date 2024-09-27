@@ -1,12 +1,13 @@
 
 import ApexTree from 'apextree';
+import './Home.css';
 
 const Home = () => {
 
     const data = {
         id: 'secretario',
         data: {
-            imageURL: '/assets/img/fabio.jpeg',
+            imageURL: '../../../assets/img/fabio.jpeg',
             name: 'Fábio Pereira Vaz',
             email: 'fabio@seduc.to.gov.br',
             setor: 'Secretário da Educação',
@@ -327,21 +328,29 @@ const Home = () => {
         direction: 'top',
         enableExpandCollapse: true,
         nodeTemplate: (content) =>
-            `<div class="node-card" 
-                onmouseover="window.dispatchEvent(new CustomEvent('showDescription', { detail: { event: event, descricao: '${content.descricao}' } }))" 
-                onmouseout="window.dispatchEvent(new CustomEvent('hideDescription'))">
-                <img class="node-image" src='${content.imageURL}' alt='' />
-                <div class="node-text">
-                    <div class="node-setor">${content.setor || ''}</div>
-                    <div class="node-nome">${content.name}</div>
-                    <div class="node-email">${content.email}</div>
-                </div>
-            </div>`,
+        `<div class="node-card" 
+            onmouseover="window.dispatchEvent(new CustomEvent('showDescription', { 
+                detail: { 
+                    descricao: '${content.descricao}', 
+                    x: event.pageX, 
+                    y: event.pageY 
+                } 
+            }))" 
+            onmouseout="window.dispatchEvent(new CustomEvent('hideDescription'))">
+            <img class="node-image" src='${content.imageURL}' alt='' />
+            <div class="node-text">
+                <div class="node-setor">${content.setor || ''}</div>
+                <div class="node-nome">${content.name}</div>
+                <div class="node-email">${content.email}</div>
+            </div>
+        </div>`,
+    
         canvasStyle: 'border: none; background: #fff;',
         enableToolbar: true,
     };
 
-    function showDescriptionHandler(event, description) {
+    function showDescriptionHandler(event) {
+        const { descricao, x, y } = event.detail;
         let descriptionBox = document.getElementById('description-box');
         
         if (!descriptionBox) {
@@ -350,13 +359,14 @@ const Home = () => {
             descriptionBox.className = 'description-box';
             document.body.appendChild(descriptionBox);
         }
-
-        descriptionBox.innerText = description;
-
-        descriptionBox.style.left = `${event.pageX + 10}px`;
-        descriptionBox.style.top = `${event.pageY + 10}px`;
+    
+        descriptionBox.innerText = descricao;
+    
+        descriptionBox.style.left = `${x + 10}px`;
+        descriptionBox.style.top = `${y + 10}px`;
         descriptionBox.style.display = 'block';
     }
+    
 
     function hideDescriptionHandler() {
         const descriptionBox = document.getElementById('description-box');

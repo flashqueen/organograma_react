@@ -1,0 +1,85 @@
+@import url('https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css');
+
+
+body {
+    font-family: 'Rawline', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#svg-tree {
+    background: #000;
+    width: 100%;
+    height: 726px;
+}
+
+.node-card {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: center;
+    height: 80%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.node-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.node-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.node-nome {
+    font-size: 12px;
+    color: #000;
+}
+
+.node-email {
+    font-size: 10px;
+    color: #000;
+    padding-bottom: 5px;
+}
+
+.node-setor {
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #1E57E2;
+}
+
+#titulo {
+    color: #1E57E2;
+}
+
+.description-box {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.description-box {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
