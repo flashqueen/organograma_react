@@ -327,21 +327,21 @@ const Home = () => {
         direction: 'top',
         enableExpandCollapse: true,
         nodeTemplate: (content) =>
-        `<div class="node-card" 
-            onmouseover="showDescription(event, '${content.descricao}')" 
-            onmouseout="hideDescription()">
-            <img class="node-image" src='${content.imageURL}' alt='' />
-            <div class="node-text">
-                <div class="node-setor">${content.setor || ''}</div>
-                <div class="node-nome">${content.name}</div>
-                <div class="node-email">${content.email}</div>
-            </div>
-        </div>`,
+            `<div class="node-card" 
+                onmouseover="window.dispatchEvent(new CustomEvent('showDescription', { detail: { event: event, descricao: '${content.descricao}' } }))" 
+                onmouseout="window.dispatchEvent(new CustomEvent('hideDescription'))">
+                <img class="node-image" src='${content.imageURL}' alt='' />
+                <div class="node-text">
+                    <div class="node-setor">${content.setor || ''}</div>
+                    <div class="node-nome">${content.name}</div>
+                    <div class="node-email">${content.email}</div>
+                </div>
+            </div>`,
         canvasStyle: 'border: none; background: #fff;',
         enableToolbar: true,
     };
 
-    function showDescription(event, description) {
+    function showDescriptionHandler(event, description) {
         let descriptionBox = document.getElementById('description-box');
         
         if (!descriptionBox) {
@@ -358,12 +358,15 @@ const Home = () => {
         descriptionBox.style.display = 'block';
     }
 
-    function hideDescription() {
+    function hideDescriptionHandler() {
         const descriptionBox = document.getElementById('description-box');
         if (descriptionBox) {
             descriptionBox.style.display = 'none';
         }
     }
+
+    window.addEventListener('showDescription', showDescriptionHandler);
+    window.addEventListener('hideDescription', hideDescriptionHandler);
 
 
     const style = document.createElement('style');
@@ -373,6 +376,7 @@ const Home = () => {
 
     const tree = new ApexTree(document.getElementById('svg-tree'), options);
     tree.render(data);
+    
 }
 
 export default Home;
